@@ -6,11 +6,9 @@ const initialeState = {
     "stepThree": false,
     "email": "",
     "password": "",
-    "legalAge": false,
-    "isMarketingAgreement": false,
+    "gdpr": false,
 
     "errors" : {
-        "legalAge": "",
         "gdpr": "",
         "email": "",
         "password": ""
