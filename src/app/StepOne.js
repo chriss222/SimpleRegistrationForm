@@ -5,6 +5,8 @@ import { setField } from "../features/registrationSlice";
 export default function StepOne({setStep}) {
     const dispatch = useDispatch();
     const {email, password, gdpr, errors} = useSelector((store) => store.registration);
+    const {email: emailError, password: passwordError, gdpr: gdprError} = useSelector((store) => store.registration.errors);
+    
 
     function handleChange(event) {
         const { name, value } = event.target
@@ -29,6 +31,13 @@ export default function StepOne({setStep}) {
         }
     }
 
+    function renderError(name) {
+        return name ? 
+            <div className="error-message">
+                <small className="form-text text-danger">{name}</small>
+            </div> : null
+    }
+
     function handleSubmit(event) {
         event.preventDefault();
         // dispatch(setField({stepOne: false, stepTwo: true}));
@@ -50,6 +59,7 @@ export default function StepOne({setStep}) {
                     onChange={handleChange}
                 />
                 <label className="form-label" htmlFor="emailInput">Your Email</label>
+                {renderError(emailError)}
             </div>
         </div>
 
@@ -65,6 +75,7 @@ export default function StepOne({setStep}) {
                     onChange={handleChange}
                 />
                 <label className="form-label" htmlFor="passwordInput">Your Password</label>
+                {renderError(passwordError)}
             </div>
         </div>
 
@@ -81,6 +92,7 @@ export default function StepOne({setStep}) {
                 I agree all statements in <a href="#!">Terms of service</a>
             </label>
         </div>
+        {renderError(gdprError)}
     
         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
             <button
@@ -91,7 +103,9 @@ export default function StepOne({setStep}) {
                 Sign Up
             </button>
         </div>
-
+        <div className="progress" style={{height: "20px"}}>
+            <div className="progress-bar" role="progressbar" style={{width: "33%"}} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
     </form>
   );
 }
